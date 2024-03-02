@@ -66,7 +66,7 @@ class Terrain {
 }
 
 let terrain = new Terrain(100, 100);
-let terrainJSON = JSON.stringify(terrain.sol);
-console.log(terrainJSON);
+// let terrainJSON = JSON.stringify(terrain.sol);
+// console.log(terrainJSON);
 
 terrain.draw();
