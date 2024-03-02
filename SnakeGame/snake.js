@@ -1,12 +1,15 @@
+import { Terrain } from "./land.js";
+
 let canvas = document.getElementById('terrain');
 let ctx = canvas.getContext('2d');
 
 class Anneau {
 
-    constructor(ctx, i, j, color = 'green') {
+    constructor(ctx, i, j, terrain, color = 'green' ) {
         this.ctx = ctx;
         this.i = i;
         this.j = j;
+        this.terrain = terrain;
         this.color = color;
     }
 
@@ -21,26 +24,50 @@ class Anneau {
         this.ctx.fillRect(this.i*cellWidth, this.j*cellWidth, cellWidth, cellHeight);
     }
 
-    move(d) {
-        // d = 0: haut, 1: droite, 2: bas, 3: gauche
-        if (d === 0) {
-            this.j -= 1;
-            if (this.j < 0) this.j = 20;
-            else if (this.j > 20) this.j = 0;
-        } else if (d === 1) {
-            this.i += 1;
-            if (this.i < 0) this.i = 20;
-            else if (this.i > 20) this.i = 0;
-        } else if (d === 2) {
-            this.j += 1;
-            if (this.j < 0) this.j = 20;
-            else if (this.j > 20) this.j = 0;
-        } else if (d === 3) {
-            this.i -= 1;
-            if (this.i < 0) this.i = 20;
-            else if (this.i > 20) this.i = 0;
+    read(d) {
+        let i = this.i;
+        let j = this.j;
+
+        if (d === 0) { // Up
+            j -= 1;
+        } else if (d === 1) { // Right
+            i += 1;
+        } else if (d === 2) { // Down
+            j += 1;
+        } else if (d === 3) { // Left
+            i -= 1;
         }
-        this.draw();
+
+        if (this.terrain.read(i, j) === 0) {
+            return true;
+        } else {
+            console.log('Collision');
+            return false;
+        }
+    }
+
+    move(d) {
+        if (this.read(d)) {
+            // d = 0: haut, 1: droite, 2: bas, 3: gauche
+            if (d === 0) {
+                this.j -= 1;
+                if (this.j < 0) this.j = 20;
+                else if (this.j > 20) this.j = 0;
+            } else if (d === 1) {
+                this.i += 1;
+                if (this.i < 0) this.i = 20;
+                else if (this.i > 20) this.i = 0;
+            } else if (d === 2) {
+                this.j += 1;
+                if (this.j < 0) this.j = 20;
+                else if (this.j > 20) this.j = 0;
+            } else if (d === 3) {
+                this.i -= 1;
+                if (this.i < 0) this.i = 20;
+                else if (this.i > 20) this.i = 0;
+            }
+            this.draw();
+        }
     }
 
     copy(a) {
@@ -71,14 +98,17 @@ class Serpent {
         let queue = this.tabAnneaux[this.tabAnneaux.length - 1];
         let anciennePositionQueue = {i: queue.i, j: queue.j};
 
-        for (let i = this.tabAnneaux.length - 1; i > 0; i--) {
-            this.tabAnneaux[i].copy(this.tabAnneaux[i-1]);
+        
+        let tete = this.tabAnneaux[0];
+        if (tete.read(d)) {
+            for (let i = this.tabAnneaux.length - 1; i > 0; i--) {
+                this.tabAnneaux[i].copy(this.tabAnneaux[i-1]);
+            }
+            
+            tete.move(d);
+            this.ctx.clearRect(anciennePositionQueue.i*20, anciennePositionQueue.j*20, 20, 20);
         }
 
-        let tete = this.tabAnneaux[0];
-        tete.move(d);
-
-        this.ctx.clearRect(anciennePositionQueue.i*20, anciennePositionQueue.j*20, 20, 20);
     }
 
     extend(){
@@ -88,23 +118,26 @@ class Serpent {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    let tete = new Anneau(ctx, 10, 10, "red");
-    let anneau2 = new Anneau(ctx, 10, 10);
-    let anneau3 = new Anneau(ctx, 10, 10);
-    let queue = new Anneau(ctx, 10, 10, "blue");
+    let terrain = new Terrain(20, 20);
+    terrain.draw();
+
+    let tete = new Anneau(ctx, 10, 10, terrain, "red");
+    let anneau2 = new Anneau(ctx, 10, 10, terrain);
+    let anneau3 = new Anneau(ctx, 10, 10, terrain);
+    let queue = new Anneau(ctx, 10, 10, terrain, "blue");
     let anneaux = [tete, anneau2, anneau3, queue];
 
     let serpent = new Serpent(ctx, 10, 10, 1, anneaux);
     serpent.draw();
     serpent.extend();
 
-    setInterval(function() {
-        let random1 = Math.floor(Math.random() * 10);
-        if(random1 < 3) {
-            let random = Math.floor(Math.random() * 4);
-            serpent.move(random);    
-        }
-    }, 300);
+    // setInterval(function() {
+    //     let random1 = Math.floor(Math.random() * 10);
+    //     if(random1 < 3) {
+    //         let random = Math.floor(Math.random() * 4);
+    //         serpent.move(random);    
+    //     }
+    // }, 300);
 
     
     document.addEventListener('keydown', function(event) {
