@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="js/main.js" defer></script>
+    <title>GAME4 TP n°1 : Mobiles</title>
+  </head>
+  <body>
+    <h1>GAME4 TP n°1 : Mobiles</h1>
+    <form>
+      <label for="number">Nombre de mobiles :</label>
+      <input type="number" id="number" name="number" required minlength="1" maxlength="200" size="10" />
+      <input type="submit" value="Générer"/>
+    </form>
+    <div class="btnContainer" id="gravity">
+      <button>Inverser la gravité</button>
+      <button id="start">Start</button>
+      <button id="stop">Stop</button>
+    </div>
+    <canvas width="400" height="400" id="mobile1"></canvas>
+    <canvas width="200" height="600" id="mobile2"></canvas>
+    <canvas width="500" height="300" id="mobile3"></canvas>
+  </body>
+</html>
