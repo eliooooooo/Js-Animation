@@ -5,7 +5,7 @@ let ctx = canvas.getContext('2d');
 
 class Anneau {
 
-    constructor(ctx, i, j, terrain, color = 'green' ) {
+    constructor(ctx, i, j, terrain = new Terrain(20, 20), color = 'green' ) {
         this.ctx = ctx;
         this.i = i;
         this.j = j;
@@ -105,14 +105,17 @@ class Serpent {
                 this.tabAnneaux[i].copy(this.tabAnneaux[i-1]);
             }
             
-            tete.move(d);
             this.ctx.clearRect(anciennePositionQueue.i*20, anciennePositionQueue.j*20, 20, 20);
+            tete.move(d);
+            tete.terrain.write(tete.i, tete.j, 1);
+            queue.terrain.write(queue.i, queue.j, 0);
         }
 
     }
 
     extend(){
-        this.tabAnneaux.push(new Anneau(this.ctx, this.tabAnneaux[this.tabAnneaux.length-1].i, this.tabAnneaux[this.tabAnneaux.length-1].j, "blue"));
+        let dernierAnneau = this.tabAnneaux[this.tabAnneaux.length-1];
+        this.tabAnneaux.push(new Anneau(this.ctx, dernierAnneau.i, dernierAnneau.j, dernierAnneau.terrain, "blue"));
         this.tabAnneaux[this.tabAnneaux.length-2].color = "green";
     }
 }
@@ -127,17 +130,24 @@ document.addEventListener('DOMContentLoaded', function() {
     let queue = new Anneau(ctx, 10, 10, terrain, "blue");
     let anneaux = [tete, anneau2, anneau3, queue];
 
+    let tete2 = new Anneau(ctx, 5, 5, terrain, "red");
+    let anneau22 = new Anneau(ctx, 5, 5, terrain);
+    let anneau32 = new Anneau(ctx, 5, 5, terrain);
+    let queue2 = new Anneau(ctx, 5, 5, terrain, "blue");
+    let anneaux2 = [tete2, anneau22, anneau32, queue2];
+
     let serpent = new Serpent(ctx, 10, 10, 1, anneaux);
+    let serpent2 = new Serpent(ctx, 5, 5, 1, anneaux2);
+    serpent2.draw();
     serpent.draw();
     serpent.extend();
 
-    // setInterval(function() {
-    //     let random1 = Math.floor(Math.random() * 10);
-    //     if(random1 < 3) {
-    //         let random = Math.floor(Math.random() * 4);
-    //         serpent.move(random);    
-    //     }
-    // }, 300);
+    setInterval(function() {
+        let random = Math.floor(Math.random() * 4);
+        let random2 = Math.floor(Math.random() * 4);
+        serpent.move(random);    
+        serpent2.move(random2);
+    }, 300);
 
     
     document.addEventListener('keydown', function(event) {
