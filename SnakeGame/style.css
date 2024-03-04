@@ -44,6 +44,16 @@ canvas {
     background-color: #f2f2f2;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .buttons button {
   padding: 10px;
   border-radius: 5px;

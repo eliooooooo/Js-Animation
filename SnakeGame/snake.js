@@ -193,14 +193,30 @@ document.addEventListener('DOMContentLoaded', function() {
       animationTimer = 0;
     }
 
-    start.addEventListener('click', startRAF);
-
-    pause.addEventListener('click', stopRAF);
-
-    resume.addEventListener('click', startRAF);
-
+    // boutons de contrôle de la partie
+    start.addEventListener('click', function() {
+      startRAF();
+      pause.style.display = 'block';
+      start.style.display = 'none';
+    });
+    pause.addEventListener('click', function(){
+      stopRAF();
+      pause.style.display = 'none';
+      resume.style.display = 'block';
+      stop.style.display = 'block';
+    });
+    resume.addEventListener('click', function(){
+      startRAF();
+      pause.style.display = 'block';
+      resume.style.display = 'none';
+      stop.style.display = 'none';
+    });
     stop.addEventListener('click', function(){
       stopRAF();
+      pause.style.display = 'none';
+      resume.style.display = 'none';
+      stop.style.display = 'none';
+      start.style.display = 'block';
       ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
       terrain = new Terrain(20, 20);
 
