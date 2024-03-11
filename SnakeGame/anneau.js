@@ -34,10 +34,13 @@ export class Anneau {
             i -= 1;
         }
 
-        if (this.terrain.read(i, j) === 0) {
+        if (this.terrain.read(i, j) === 0 || this.terrain.read(i, j) === 3){
+            if (this.terrain.read(i, j) === 3) {
+                return 2;
+            }
             return true;
         } else {
-            console.log('Collision');
+            // console.log('Collision');
             return false;
         }
     }

@@ -1,4 +1,5 @@
 import { Anneau } from "./anneau.js";
+import { Pomme } from "./pomme.js";
 
 export class Serpent {
     constructor(ctx, i, j, direction, tabAnneaux = []) {
@@ -22,11 +23,17 @@ export class Serpent {
 
         
         let tete = this.tabAnneaux[0];
-        if (tete.read(d)) {
+        if (tete.read(d) || tete.read(d) === 2) {
             for (let i = this.tabAnneaux.length - 1; i > 0; i--) {
                 this.tabAnneaux[i].copy(this.tabAnneaux[i-1]);
             }
             
+            if (tete.read(d) === 2) {
+                this.extend();
+                let pomme = new Pomme(this.ctx, tete.terrain, 'pink');
+                pomme.draw();
+            }
+
             this.ctx.clearRect(anciennePositionQueue.i*20, anciennePositionQueue.j*20, 20, 20);
             tete.move(d);
             tete.terrain.write(tete.i, tete.j, 1);
