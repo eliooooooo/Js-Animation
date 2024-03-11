@@ -64,9 +64,3 @@ export class Terrain {
         this.sol[i][j] = value;
     }
 }
-
-// let terrain = new Terrain(20, 20);
-// let terrainJSON = JSON.stringify(terrain.sol);
-// console.log(terrainJSON);
-
-// terrain.draw();
