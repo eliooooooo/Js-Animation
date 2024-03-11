@@ -111,5 +111,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
       let pomme = new Pomme(ctx, terrain, 'pink');
       pomme.draw();
+
+      let score = document.getElementById('scoreNumber');
+      score.innerHTML = 0;
     });
 });

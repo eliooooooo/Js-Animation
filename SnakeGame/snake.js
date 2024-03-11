@@ -32,6 +32,7 @@ export class Serpent {
                 this.extend();
                 let pomme = new Pomme(this.ctx, tete.terrain, 'pink');
                 pomme.draw();
+                pomme.score();
             }
 
             this.ctx.clearRect(anciennePositionQueue.i*20, anciennePositionQueue.j*20, 20, 20);

@@ -27,4 +27,10 @@ export class Pomme {
         this.terrain.write(i, j, 3);
         this.ctx.fillRect(i*cellWidth, j*cellWidth, cellWidth, cellHeight);
     }
+
+    score() {
+        let score = document.getElementById('scoreNumber').innerHTML;
+        score++;
+        document.getElementById('scoreNumber').innerHTML = score;
+    }
 }
