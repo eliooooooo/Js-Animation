@@ -39,6 +39,8 @@ export class Serpent {
             tete.move(d);
             tete.terrain.write(tete.i, tete.j, 1);
             queue.terrain.write(queue.i, queue.j, 0);
+        } else {
+            this.gameOver();
         }
 
     }
@@ -47,5 +49,9 @@ export class Serpent {
         let dernierAnneau = this.tabAnneaux[this.tabAnneaux.length-1];
         this.tabAnneaux.push(new Anneau(this.ctx, dernierAnneau.i, dernierAnneau.j, dernierAnneau.terrain, "blue"));
         this.tabAnneaux[this.tabAnneaux.length-2].color = "green";
+    }
+
+    gameOver(){
+        alert("Game Over");
     }
 }

@@ -6,6 +6,7 @@ import { Pomme } from "./pomme.js";
 let canvas = document.getElementById('terrain');
 let ctx = canvas.getContext('2d');
 
+
 document.addEventListener('DOMContentLoaded', function() {
     let terrain = new Terrain(20, 20);
     terrain.draw();
@@ -24,18 +25,21 @@ document.addEventListener('DOMContentLoaded', function() {
     pomme.draw();
 
     function anim() {
-      let random = Math.floor(Math.random() * 4);
-      serpent.move(random);    
+      serpent.move(serpent.direction);  
     }
     
     document.addEventListener('keydown', function(event) {
         if (event.key === "ArrowUp") {
+            starttime = 0;
             serpent.move(0);
         } else if (event.key === "ArrowRight") {
+            starttime = 0;
             serpent.move(1);
         } else if (event.key === "ArrowDown") {
+            starttime = 0;
             serpent.move(2);
         } else if (event.key === "ArrowLeft") {
+            starttime = 0;
             serpent.move(3);
         }
     });
@@ -50,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let starttime = 0;
     // Fréquence d'affichage maximum
     const maxfps = 60;
-    const interval = 10000 / maxfps;
+    const interval = 15000 / maxfps;
 
     function startRAF(timestamp = 0) {
       animationTimer = requestAnimationFrame(startRAF);
@@ -107,7 +111,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // Dessiner les serpents et le terrain
       terrain.draw();
       serpent.draw();
-      serpent.extend();
 
       let pomme = new Pomme(ctx, terrain, 'pink');
       pomme.draw();

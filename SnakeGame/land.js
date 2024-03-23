@@ -9,6 +9,18 @@ export class Terrain {
         this.sol = this.getLand(largeur, hauteur);
     }
 
+    addRock() {
+        let i = Math.floor(Math.random() * this.largeur);
+        let j = Math.floor(Math.random() * this.hauteur);
+        while (i === 0 || i === this.largeur - 1 || j === 0 || j === this.hauteur - 1 || this.sol[i][j] !== 0) {
+            i = Math.floor(Math.random() * this.largeur);
+            j = Math.floor(Math.random() * this.hauteur);
+        }
+
+        this.sol[i][j] = 2;
+        this.drawRock(i, j);
+    }
+
     getLand(largeur, hauteur) {
         const tab = new Array(largeur);
         let nbRocks = 20;
@@ -54,6 +66,17 @@ export class Terrain {
                 ctx.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
             }
         }
+    }
+
+    drawRock(i, j) {
+        let clientHeight = canvas.clientHeight;
+        let clientWidth = canvas.clientWidth;
+
+        let cellWidth = clientWidth / this.largeur;
+        let cellHeight = clientHeight / this.hauteur;
+
+        ctx.fillStyle = 'black';
+        ctx.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
     }
 
     read(i, j) {

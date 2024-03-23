@@ -32,5 +32,9 @@ export class Pomme {
         let score = document.getElementById('scoreNumber').innerHTML;
         score++;
         document.getElementById('scoreNumber').innerHTML = score;
+
+        if (score % 2 === 0) {
+            this.terrain.addRock();
+        }
     }
 }
