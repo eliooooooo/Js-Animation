@@ -11,17 +11,17 @@ document.addEventListener('DOMContentLoaded', function() {
     let terrain = new Terrain(20, 20);
     terrain.draw();
     
-    let tete = new Anneau(ctx, 10, 10, terrain, "red");
+    let tete = new Anneau(ctx, 10, 10, terrain, "rgb(0,100,0)");
     let anneau2 = new Anneau(ctx, 10, 10, terrain);
     let anneau3 = new Anneau(ctx, 10, 10, terrain);
-    let queue = new Anneau(ctx, 10, 10, terrain, "blue");
+    let queue = new Anneau(ctx, 10, 10, terrain, "green");
     let anneaux = [tete, anneau2, anneau3, queue];
     
     let serpent = new Serpent(ctx, 10, 10, 1, anneaux);
     serpent.draw();
     serpent.extend();
     
-    let pomme = new Pomme(ctx, terrain, 'pink');
+    let pomme = new Pomme(ctx, terrain, 'red');
     pomme.draw();
 
     function anim() {
@@ -99,11 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
       ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
       terrain = new Terrain(20, 20);
 
-      // Recréer les objets serpent et serpent2
-      tete = new Anneau(ctx, 10, 10, terrain, "red");
+      // Recréer les objets serpent 
+      tete = new Anneau(ctx, 10, 10, terrain, "rgb(0,100,0)");
       anneau2 = new Anneau(ctx, 10, 10, terrain);
       anneau3 = new Anneau(ctx, 10, 10, terrain);
-      queue = new Anneau(ctx, 10, 10, terrain, "blue");
+      queue = new Anneau(ctx, 10, 10, terrain, "green");
       anneaux = [tete, anneau2, anneau3, queue];
 
       serpent = new Serpent(ctx, 10, 10, 1, anneaux);
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
       terrain.draw();
       serpent.draw();
 
-      let pomme = new Pomme(ctx, terrain, 'pink');
+      let pomme = new Pomme(ctx, terrain, 'red');
       pomme.draw();
 
       let score = document.getElementById('scoreNumber');

@@ -30,7 +30,7 @@ export class Serpent {
             
             if (tete.read(d) === 2) {
                 this.extend();
-                let pomme = new Pomme(this.ctx, tete.terrain, 'pink');
+                let pomme = new Pomme(this.ctx, tete.terrain, 'red');
                 pomme.draw();
                 pomme.score();
             }
@@ -47,7 +47,7 @@ export class Serpent {
 
     extend(){
         let dernierAnneau = this.tabAnneaux[this.tabAnneaux.length-1];
-        this.tabAnneaux.push(new Anneau(this.ctx, dernierAnneau.i, dernierAnneau.j, dernierAnneau.terrain, "blue"));
+        this.tabAnneaux.push(new Anneau(this.ctx, dernierAnneau.i, dernierAnneau.j, dernierAnneau.terrain, "green"));
         this.tabAnneaux[this.tabAnneaux.length-2].color = "green";
     }
 

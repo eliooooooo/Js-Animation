@@ -54,14 +54,17 @@ export class Terrain {
         let cellWidth = clientWidth / this.largeur;
         let cellHeight = clientHeight / this.hauteur;
 
+        const colors = ['rgb(128,128,128)', 'rgb(220,220,220)', 'rgb(211,211,211)', 'rgb(192,192,192)', 'rgb(169,169,169)', 'rgb(105,105,105)']
+
         for (let i = 0; i < this.sol.length; i++) {
             for (let j = 0; j < this.sol[i].length; j++) {
                 if (this.sol[i][j] === 0) {
                     ctx.fillStyle = 'white';
                 } else if (this.sol[i][j] === 1) {
-                    ctx.fillStyle = 'black';
+                    let color = colors[Math.floor(Math.random() * colors.length)];
+                    ctx.fillStyle = color;
                 } else if (this.sol[i][j] === 2) {
-                    ctx.fillStyle = 'red';
+                    ctx.fillStyle = 'black';
                 }
                 ctx.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
             }
@@ -75,7 +78,10 @@ export class Terrain {
         let cellWidth = clientWidth / this.largeur;
         let cellHeight = clientHeight / this.hauteur;
 
-        ctx.fillStyle = 'black';
+        const colors = ['rgb(128,128,128)', 'rgb(220,220,220)', 'rgb(211,211,211)', 'rgb(192,192,192)', 'rgb(169,169,169)', 'rgb(105,105,105)']
+        let color = colors[Math.floor(Math.random() * colors.length)];
+
+        ctx.fillStyle = color;
         ctx.fillRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
     }
 
