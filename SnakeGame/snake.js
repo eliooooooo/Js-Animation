@@ -52,6 +52,10 @@ export class Serpent {
     }
 
     gameOver(){
-        alert("Game Over");
+        if (!this.gameOverTriggered) {
+            this.gameOverTriggered = true;
+            alert("Game Over");
+            window.location.reload();
+        }
     }
 }
