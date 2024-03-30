@@ -23,9 +23,14 @@ export class Pomme {
             j = Math.floor(Math.random() * 20);
         }
 
-        this.ctx.fillStyle = this.color;
         this.terrain.write(i, j, 3);
-        this.ctx.fillRect(i*cellWidth, j*cellWidth, cellWidth, cellHeight);
+
+        let img = new Image();
+        img.src = './img/pomme.png';
+
+        img.onload = function() {
+            this.ctx.drawImage(img, i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+        }.bind(this);
     }
 
     score() {
